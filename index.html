@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="blush">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Aura — Aesthetic Clinic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ===== Tema: ganti lewat data-theme di <html> ===== */
+  [data-theme="blush"] { --bg:#fbf8f5; --surface:#f4ece6; --ink:#2b2522; --muted:#8a7d76; --line:#e7ddd6; --accent:#c9968a; --accent-ink:#fff; --serif:"Cormorant Garamond", serif; }
+  [data-theme="sage"]  { --bg:#f7f7f2; --surface:#e9ece3; --ink:#232a24; --muted:#7b857a; --line:#dde2d6; --accent:#8a9a82; --accent-ink:#fff; --serif:"Cormorant Garamond", serif; }
+  [data-theme="mono"]  { --bg:#ffffff; --surface:#f3f3f3; --ink:#111111; --muted:#777777; --line:#e5e5e5; --accent:#111111; --accent-ink:#fff; --serif:"Inter", sans-serif; }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--ink); font:300 16px/1.7 "Inter", sans-serif; transition:background .4s, color .4s; }
+  a { color:inherit; text-decoration:none; }
+  .wrap { max-width:1200px; margin:0 auto; padding:0 24px; }
+  section { padding:120px 0; border-top:1px solid var(--line); }
+  h1, h2, h3 { font-family:var(--serif); font-weight:400; line-height:1.1; letter-spacing:-.01em; }
+  [data-theme="mono"] h1, [data-theme="mono"] h2 { font-weight:500; letter-spacing:-.04em; }
+  h2 { font-size:clamp(2.2rem, 5vw, 3.6rem); }
+  em { font-style:italic; color:var(--accent); }
+  .eyebrow { font-size:.72rem; letter-spacing:.24em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:20px; }
+  .head { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:end; margin-bottom:72px; }
+  .head p { color:var(--muted); max-width:420px; }
+  .btn { display:inline-block; padding:16px 32px; border-radius:999px; background:var(--accent); color:var(--accent-ink); font-size:.85rem; letter-spacing:.08em; transition:opacity .2s; }
+  .btn:hover { opacity:.85; }
+  .btn.ghost { background:transparent; color:var(--ink); border:1px solid var(--ink); }
+
+  /* Nav */
+  nav { position:sticky; top:0; z-index:10; background:color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
+  nav .wrap { display:flex; align-items:center; justify-content:space-between; height:72px; }
+  nav .btn { padding:12px 24px; }
+  .logo { font-family:var(--serif); font-size:1.5rem; }
+  .links { display:flex; gap:32px; font-size:.85rem; color:var(--muted); }
+  .links a:hover { color:var(--ink); }
+
+  /* Theme switcher */
+  .themes { position:fixed; right:20px; bottom:20px; z-index:20; display:flex; gap:8px; padding:8px; background:var(--bg); border:1px solid var(--line); border-radius:999px; box-shadow:0 8px 24px rgba(0,0,0,.06); }
+  .themes button { width:28px; height:28px; border-radius:50%; border:2px solid var(--bg); outline:1px solid transparent; cursor:pointer; }
+  .themes button[aria-pressed="true"] { outline-color:var(--ink); }
+
+  /* Hero */
+  .hero { padding:96px 0 0; }
+  .hero .wrap:first-child { display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:center; }
+  .hero h1 { font-size:clamp(3rem, 7vw, 6rem); margin-bottom:32px; }
+  .hero p { color:var(--muted); max-width:460px; margin-bottom:40px; }
+  .actions { display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-art { aspect-ratio:4/5; border-radius:240px 240px 12px 12px; background:radial-gradient(circle at 30% 30%, var(--bg), var(--surface) 60%, var(--accent)); position:relative; }
+  .hero-art span { position:absolute; left:-24px; bottom:48px; background:var(--bg); border:1px solid var(--line); padding:16px 24px; border-radius:12px; font-size:.8rem; }
+  .hero-art b { font-family:var(--serif); font-size:1.8rem; font-weight:400; display:block; }
+  .stats { display:grid; grid-template-columns:repeat(4, 1fr); margin-top:96px; border-top:1px solid var(--line); }
+  .stats div { padding:32px 0; }
+  .stats b { font-family:var(--serif); font-size:2.6rem; font-weight:400; display:block; }
+  .stats small { color:var(--muted); font-size:.8rem; }
+
+  /* About */
+  .about .wrap { display:grid; grid-template-columns:1fr 1fr; gap:96px; }
+  .about p { color:var(--muted); margin-bottom:20px; }
+  .about dl { display:grid; grid-template-columns:auto 1fr; gap:16px 32px; margin-top:40px; font-size:.9rem; }
+  .about dt { color:var(--muted); }
+
+  /* Grid garis (treatment & why) */
+  .grid { display:grid; grid-template-columns:repeat(3, 1fr); border-top:1px solid var(--line); border-left:1px solid var(--line); }
+  .grid > * { border-right:1px solid var(--line); border-bottom:1px solid var(--line); padding:40px 32px; }
+  .treat { transition:background .3s; }
+  .treat:hover { background:var(--surface); }
+  .treat .n { font-size:.75rem; color:var(--muted); }
+  .treat h3 { font-size:1.8rem; margin:48px 0 12px; }
+  .treat p { color:var(--muted); font-size:.9rem; }
+  .treat .price { margin-top:24px; font-size:.8rem; letter-spacing:.06em; }
+
+  /* Doctors */
+  .docs { display:grid; grid-template-columns:repeat(3, 1fr); gap:32px; }
+  .portrait { aspect-ratio:4/5; border-radius:12px; background:linear-gradient(160deg, var(--surface), var(--accent)); display:grid; place-items:center; font-family:var(--serif); font-size:4rem; color:var(--bg); margin-bottom:24px; }
+  .doc h3 { font-size:1.6rem; }
+  .doc .role { color:var(--accent); font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; margin:6px 0 12px; }
+  .doc p { color:var(--muted); font-size:.9rem; }
+
+  /* Why */
+  .why .grid { grid-template-columns:repeat(4, 1fr); }
+  .why .grid > div { padding:48px 28px; }
+  .why .ic { width:44px; height:44px; border-radius:50%; border:1px solid var(--accent); display:grid; place-items:center; color:var(--accent); font-family:var(--serif); font-size:1.1rem; margin-bottom:32px; }
+  .why h3 { font-size:1.4rem; margin-bottom:12px; }
+  .why p { color:var(--muted); font-size:.88rem; }
+
+  /* Schedule */
+  .table { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; font-size:.9rem; min-width:720px; }
+  th, td { padding:20px 16px; border-bottom:1px solid var(--line); text-align:left; }
+  th { font-weight:400; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); }
+  td:first-child { font-family:var(--serif); font-size:1.2rem; }
+  td.off { color:var(--muted); opacity:.45; }
+  .today { background:var(--surface); }
+  .note { margin-top:24px; font-size:.82rem; color:var(--muted); }
+
+  /* Location */
+  .loc .wrap { display:grid; grid-template-columns:.8fr 1.2fr; gap:64px; }
+  .loc iframe { width:100%; height:100%; min-height:440px; border:0; border-radius:12px; }
+  .loc address { font-style:normal; margin:32px 0; color:var(--muted); }
+  .loc .joke { font-size:.8rem; padding:16px; background:var(--surface); border-radius:8px; margin-bottom:32px; }
+
+  /* Reviews */
+  .revs { display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; }
+  .rev { padding:40px 32px; background:var(--surface); border-radius:12px; display:flex; flex-direction:column; gap:24px; }
+  .rev .stars { color:var(--accent); letter-spacing:.2em; }
+  .rev blockquote { font-family:var(--serif); font-size:1.35rem; line-height:1.4; flex:1; }
+  [data-theme="mono"] .rev blockquote { font-size:1.05rem; }
+  .rev cite { font-style:normal; font-size:.82rem; color:var(--muted); }
+  .score { display:flex; gap:24px; align-items:baseline; }
+  .score b { font-family:var(--serif); font-size:4rem; font-weight:400; }
+
+  /* CTA */
+  .cta { text-align:center; background:var(--surface); }
+  .cta h2 { font-size:clamp(2.6rem, 6vw, 5rem); max-width:800px; margin:0 auto 24px; }
+  .cta p { color:var(--muted); margin-bottom:40px; }
+  .cta .actions { justify-content:center; }
+
+  footer { padding:48px 0 96px; font-size:.8rem; color:var(--muted); }
+  footer .wrap { display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+
+  @media (max-width:900px) {
+    section { padding:80px 0; }
+    .links { display:none; }
+    .head, .hero .wrap:first-child, .about .wrap, .loc .wrap { grid-template-columns:1fr; gap:40px; }
+    .grid, .revs { grid-template-columns:1fr; }
+    .docs { grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); }
+    .why .grid { grid-template-columns:1fr 1fr; }
+    .stats { grid-template-columns:1fr 1fr; }
+    .hero-art { max-width:360px; width:100%; }
+    .hero-art span { left:16px; }
+  }
+  @media (max-width:520px) { .why .grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#" class="logo">Maison Aura</a>
+    <div class="links">
+      <a href="#tentang">Tentang</a><a href="#layanan">Layanan</a><a href="#dokter">Dokter</a>
+      <a href="#why">Why Us</a><a href="#jadwal">Jadwal</a><a href="#lokasi">Lokasi</a><a href="#review">Review</a>
+    </div>
+    <a href="#booking" class="btn">Reservasi</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Aesthetic &amp; Skin Clinic — Est. 2019</span>
+      <h1>Kulit sehat,<br><em>cantik</em> apa adanya.</h1>
+      <p>Perawatan kulit berbasis medis oleh dokter bersertifikat. Hasil natural, tanpa berlebihan, dirancang khusus untuk kulit tropis.</p>
+      <div class="actions">
+        <a href="#booking" class="btn">Konsultasi Gratis</a>
+        <a href="#layanan" class="btn ghost">Lihat Treatment</a>
+      </div>
+    </div>
+    <div class="hero-art"><span><b>4.9 ★</b>dari 1.200+ pasien</span></div>
+  </div>
+  <div class="wrap stats">
+    <div><b>7+</b><small>Tahun pengalaman</small></div>
+    <div><b>3</b><small>Dokter spesialis</small></div>
+    <div><b>15k</b><small>Treatment selesai</small></div>
+    <div><b>6</b><small>Kategori perawatan</small></div>
+  </div>
+</header>
+
+<!-- 1. Informasi klinik -->
+<section id="tentang" class="about">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">01 — Tentang Klinik</span>
+      <h2>Ruang tenang untuk <em>merawat diri.</em></h2>
+    </div>
+    <div>
+      <p>Maison Aura adalah klinik estetika yang berfokus pada kesehatan kulit jangka panjang. Kami percaya kecantikan terbaik datang dari kulit yang sehat — bukan dari tren sesaat.</p>
+      <p>Setiap perawatan diawali dengan analisis kulit dan konsultasi dokter, lalu disusun menjadi program yang sesuai kebutuhan Anda.</p>
+      <dl>
+        <dt>Izin</dt><dd>Klinik Utama Kecantikan (fiktif) No. 000/AURA/2019</dd>
+        <dt>Jam buka</dt><dd>Senin – Sabtu, 10.00 – 20.00</dd>
+        <dt>Telepon</dt><dd>(021) 000-0000</dd>
+        <dt>Email</dt><dd>hello@maisonaura.example</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Layanan -->
+<section id="layanan">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="eyebrow">02 — Layanan</span><h2>Apa yang kami <em>tangani.</em></h2></div>
+      <p>Dari masalah kulit harian hingga peremajaan — semua ditangani langsung oleh dokter, bukan terapis.</p>
+    </div>
+    <div class="grid">
+      <div class="treat"><span class="n">01</span><h3>Acne Care</h3><p>Jerawat aktif, komedo, dan bekas jerawat dengan peeling &amp; terapi LED.</p><div class="price">Mulai Rp 350.000</div></div>
+      <div class="treat"><span class="n">02</span><h3>Brightening</h3><p>Flek hitam, melasma, dan kulit kusam dengan laser &amp; infus vitamin.</p><div class="price">Mulai Rp 500.000</div></div>
+      <div class="treat"><span class="n">03</span><h3>Anti-Aging</h3><p>Garis halus dan kerutan dengan botox, filler, dan skin booster.</p><div class="price">Mulai Rp 1.500.000</div></div>
+      <div class="treat"><span class="n">04</span><h3>Facial Signature</h3><p>Deep cleansing dan hidrasi untuk perawatan rutin bulanan.</p><div class="price">Mulai Rp 250.000</div></div>
+      <div class="treat"><span class="n">05</span><h3>Body Contouring</h3><p>Pembentukan tubuh non-invasif dengan teknologi HIFU &amp; RF.</p><div class="price">Mulai Rp 2.000.000</div></div>
+      <div class="treat"><span class="n">06</span><h3>Hair &amp; Scalp</h3><p>Rambut rontok dan penipisan dengan terapi PRP.</p><div class="price">Mulai Rp 900.000</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Dokter -->
+<section id="dokter">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="eyebrow">03 — Tim Dokter</span><h2>Ditangani oleh <em>ahlinya.</em></h2></div>
+      <p>Tiga dokter dengan latar belakang dermatologi dan estetika medis.</p>
+    </div>
+    <div class="docs">
+      <article class="doc"><div class="portrait">NA</div><h3>dr. Nadia Anindita, Sp.DVE</h3><div class="role">Dermatologi &amp; Venereologi</div><p>Spesialis jerawat dan melasma. 10 tahun pengalaman klinis.</p></article>
+      <article class="doc"><div class="portrait">RP</div><h3>dr. Raka Pradipta, M.Biomed</h3><div class="role">Estetika Medis</div><p>Fokus pada anti-aging, filler, dan kontur wajah natural.</p></article>
+      <article class="doc"><div class="portrait">SL</div><h3>dr. Sekar Laras</h3><div class="role">Dokter Estetika</div><p>Menangani laser, body contouring, dan perawatan rambut.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Why us -->
+<section id="why" class="why">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="eyebrow">04 — Why Us</span><h2>Kenapa memilih <em>Maison Aura.</em></h2></div>
+      <p>Kami tidak menjual paket. Kami menyusun rencana perawatan.</p>
+    </div>
+    <div class="grid">
+      <div><div class="ic">i</div><h3>Selalu dengan dokter</h3><p>Setiap tindakan dilakukan dan diawasi dokter, bukan terapis.</p></div>
+      <div><div class="ic">ii</div><h3>Produk terdaftar</h3><p>Hanya memakai produk &amp; alat resmi berizin edar.</p></div>
+      <div><div class="ic">iii</div><h3>Hasil natural</h3><p>Kami menolak treatment berlebihan. Anda tetap terlihat seperti Anda.</p></div>
+      <div><div class="ic">iv</div><h3>Harga transparan</h3><p>Semua biaya dijelaskan di awal. Tanpa hard-selling.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Jadwal -->
+<section id="jadwal">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="eyebrow">05 — Jadwal Dokter</span><h2>Jadwal <em>praktik.</em></h2></div>
+      <p>Kolom hari ini disorot otomatis. Disarankan reservasi minimal H-1.</p>
+    </div>
+    <div class="table">
+      <table>
+        <thead><tr><th>Dokter</th><th data-day="1">Sen</th><th data-day="2">Sel</th><th data-day="3">Rab</th><th data-day="4">Kam</th><th data-day="5">Jum</th><th data-day="6">Sab</th><th data-day="0">Min</th></tr></thead>
+        <tbody>
+          <tr><td>dr. Nadia</td><td>10–15</td><td class="off">—</td><td>10–15</td><td class="off">—</td><td>13–20</td><td>10–14</td><td class="off">Tutup</td></tr>
+          <tr><td>dr. Raka</td><td class="off">—</td><td>13–20</td><td class="off">—</td><td>13–20</td><td>10–15</td><td>14–20</td><td class="off">Tutup</td></tr>
+          <tr><td>dr. Sekar</td><td>15–20</td><td>10–15</td><td>15–20</td><td>10–15</td><td class="off">—</td><td>10–16</td><td class="off">Tutup</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">* Jadwal dapat berubah sewaktu-waktu. Konfirmasi via WhatsApp sebelum datang.</p>
+  </div>
+</section>
+
+<!-- 6. Lokasi -->
+<section id="lokasi" class="loc">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">06 — Lokasi</span>
+      <h2>Temukan <em>kami.</em></h2>
+      <address>Jl. Samudra Biru No. 0<br>Tengah Laut Banda, Maluku<br>Indonesia 00000</address>
+      <p class="joke">🌊 Catatan: klinik ini fiktif — pin sengaja diletakkan di tengah Laut Banda. Mohon jangan berenang ke sana.</p>
+      <a class="btn" target="_blank" rel="noopener" href="https://www.openstreetmap.org/?mlat=-5.8&amp;mlon=127.4#map=6/-5.8/127.4">Buka di Maps</a>
+    </div>
+    <iframe title="Peta lokasi klinik" loading="lazy"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=124.4%2C-8.3%2C130.4%2C-3.3&amp;layer=mapnik&amp;marker=-5.8%2C127.4"></iframe>
+  </div>
+</section>
+
+<!-- 7. Review -->
+<section id="review">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="eyebrow">07 — Review</span><h2>Kata <em>mereka.</em></h2></div>
+      <div class="score"><b>4.9</b><span class="eyebrow" style="margin:0">1.248 ulasan (fiktif)</span></div>
+    </div>
+    <div class="revs">
+      <div class="rev"><div class="stars">★★★★★</div><blockquote>“Jerawat saya yang bertahun-tahun akhirnya reda dalam 3 bulan. dr. Nadia sabar banget jelasinnya.”</blockquote><cite>Alya R. — Acne Care</cite></div>
+      <div class="rev"><div class="stars">★★★★★</div><blockquote>“Hasil filler-nya natural, teman-teman cuma bilang saya kelihatan lebih segar.”</blockquote><cite>Dimas P. — Anti-Aging</cite></div>
+      <div class="rev"><div class="stars">★★★★☆</div><blockquote>“Tempatnya tenang dan bersih. Satu-satunya kekurangan: parkir kapal agak susah.”</blockquote><cite>Kirana S. — Facial Signature</cite></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. CTA -->
+<section id="booking" class="cta">
+  <div class="wrap">
+    <span class="eyebrow">Reservasi</span>
+    <h2>Mulai perjalanan kulit <em>sehatmu</em> hari ini.</h2>
+    <p>Konsultasi pertama gratis. Balasan dalam 15 menit di jam kerja.</p>
+    <div class="actions">
+      <a class="btn" target="_blank" rel="noopener" href="https://wa.me/620000000000?text=Halo%20Maison%20Aura%2C%20saya%20ingin%20reservasi">Chat WhatsApp</a>
+      <a class="btn ghost" href="tel:0210000000">Telepon Klinik</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Maison Aura — proyek fiktif untuk portofolio.</span>
+    <span>Instagram · TikTok · WhatsApp</span>
+  </div>
+</footer>
+
+<div class="themes" role="group" aria-label="Pilih tema">
+  <button data-set="blush" style="background:#c9968a" title="Blush" aria-label="Tema Blush"></button>
+  <button data-set="sage" style="background:#8a9a82" title="Sage" aria-label="Tema Sage"></button>
+  <button data-set="mono" style="background:#111" title="Mono" aria-label="Tema Mono"></button>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const buttons = document.querySelectorAll('.themes button');
+  const setTheme = (t) => {
+    root.dataset.theme = t;
+    buttons.forEach(b => b.setAttribute('aria-pressed', b.dataset.set === t));
+    try { localStorage.setItem('aura-theme', t); } catch {}
+  };
+  buttons.forEach(b => b.onclick = () => setTheme(b.dataset.set));
+  let saved = 'blush';
+  try { saved = localStorage.getItem('aura-theme') || saved; } catch {}
+  setTheme(saved);
+
+  // Sorot kolom hari ini di jadwal
+  const col = [...document.querySelectorAll('th[data-day]')].findIndex(th => +th.dataset.day === new Date().getDay());
+  document.querySelectorAll('#jadwal tr').forEach(tr => tr.children[col + 1]?.classList.add('today'));
+</script>
+</body>
+</html>
